@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 from dataclasses import dataclass
-from src.DimondPricePrediction import customexception
+from src.DimondPricePrediction.exception import customexception
 from src.DimondPricePrediction.logger import logging
 
 from sklearn.compose import ColumnTransformer
@@ -49,14 +49,14 @@ class DataTransformation:
             cat_pipeline=Pipeline(
                 steps=[
                     ("impter",SimpleImputer(strategy='most_frequent')),
-                    ('ordinalencoder',OrdinalEncoder(categories=[cut_categories,color_categories,clarity_categories]))
+                    ('ordinalencoder',OrdinalEncoder(categories=[cut_categories,color_categories,clarity_categories])),
                     ('scaler',StandardScaler())
                     ]
             )
 
 
-            preprocessor=CloumnTransformer([
-                ('num_pipline',num_pipline,numerical_cols),
+            preprocessor=ColumnTransformer([
+                ('num_pipline',num_pipeline,numerical_cols),
                 ('cat_pipline',cat_pipeline,categorical_cols)
             ])
 
@@ -83,6 +83,9 @@ class DataTransformation:
 
             input_feature_train_df = train_df.drop(columns=drop_columns,axis=1)
             target_feature_train_df=train_df[target_column_name]
+
+            input_feature_test_df=test_df.drop(columns=drop_columns,axis=1)
+            target_feature_test_df=test_df[target_column_name]
 
             input_feature_train_arr = preprocessing_obj.fit_transformation(input_feature_train_df)
 

@@ -1,24 +1,26 @@
-import os
-import sys
+
 import pandas as pd
 import numpy as np
-
-from dataclasses import dataclass
-from src.DimondPricePrediction.exception import customexception
+import os
+import sys
 from src.DimondPricePrediction.logger import logging
-from src.DimondPricePrediction.utils.utlis import save_object
-from src.DimondPricePrediction.utils.utlis import evaluate_model
+from src.DimondPricePrediction.exception import customexception
+from dataclasses import dataclass
+from src.DimondPricePrediction.utils import save_object
+from src.DimondPricePrediction.utils import evaluate_model
 
-from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
+from sklearn.linear_model import LinearRegression, Ridge,Lasso,ElasticNet
 
 
+@dataclass 
 class ModelTrainerConfig:
-    trained_model_file_path = os.path.join('artifacts','model.pk1')
-
+    trained_model_file_path = os.path.join('artifacts','model.pkl')
+    
+    
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
-
+    
     def initate_model_training(self,train_array,test_array):
         try:
             logging.info('Splitting Dependent and Independent variables from train and test data')
@@ -64,6 +66,5 @@ class ModelTrainer:
             logging.info('Exception occured at Model Training')
             raise customexception(e,sys)
 
-
-
+        
     

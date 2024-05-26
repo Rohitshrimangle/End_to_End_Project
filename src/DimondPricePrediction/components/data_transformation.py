@@ -90,9 +90,19 @@ class DataTransformation:
 
             logging.info('applying preprocessor object on training and testing datasets.')
 
+            train_arr = np.c_[input_feature_test_arr,np.array(target_feature_train_df)]
+            test_arr = np.c_[input_feature_test_arr,np.array(target_feature_test_df)]
+
             save_object(
                 self.data_transformation_config.preprocessor_obj_file_path,
                 obj = preprocessing_obj
+            )
+
+            logging.info("preprocessor pickle file saved")
+
+            return(
+                train_arr,
+                test_arr
             )
 
         except Exception as e:

@@ -3,5 +3,6 @@ scikit-learn
 numpy
 ipykernal
 seaborn
+Flask
 
 -e .

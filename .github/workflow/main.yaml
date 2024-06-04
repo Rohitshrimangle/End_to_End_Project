@@ -1,8 +1,8 @@
 name: Build and push image to ECR
 on:
-  push:
-     branches:
-       - main
+ Push:
+   branches:
+      -main
 
 
 
@@ -21,7 +21,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -31,7 +31,8 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+        ECR_REPOSITORY: github_sample
+        IMAGE_TAG: latest
       run: |
         # Build a docker container and
         # push it to ECR so that it can

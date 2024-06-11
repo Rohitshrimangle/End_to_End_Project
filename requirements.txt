@@ -1,8 +1,10 @@
 pandas
 scikit-learn
 numpy
-ipykernal
+#ipykernal
 seaborn
 Flask
+dvc
+mlflow
 
 -e .

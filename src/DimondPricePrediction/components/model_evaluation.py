@@ -24,7 +24,7 @@ class ModelEvaluation:
 
     def initiate_model_evaluation(self,train_array,test_array):
         try:
-            X_test,y_test=(test_array[:,:-1], test_array[:,-1])
+            x_test,y_test=(test_array[:,:-1], test_array[:,-1])
 
             model_path=os.path.join("artifacts","model.pkl")
             model=load_object(model_path)
@@ -41,7 +41,7 @@ class ModelEvaluation:
 
             with mlflow.start_run():
 
-                predicted_qualities = model.predict(X_test)
+                predicted_qualities = model.predict(x_test)
 
                 (rmse, mae, r2) = self.eval_metrics(y_test, predicted_qualities)
 
